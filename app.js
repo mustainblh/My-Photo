@@ -1,64 +1,56 @@
-const fileInput = document.getElementById("fileInput");
-const previewContainer = document.getElementById("previewContainer");
-const urlList = document.getElementById("urlList");
-const progress = document.getElementById("progress");
-const dropArea = document.getElementById("dropArea");
+const CLOUD_NAME = "YOUR_CLOUD_NAME";
+const UPLOAD_PRESET = "YOUR_UNSIGNED_PRESET";
 
-let selectedFiles = [];
+let images = JSON.parse(localStorage.getItem("cloudImages")) || [];
 
-fileInput.addEventListener("change", (e) => {
-  selectedFiles = [...e.target.files];
-  showPreview();
-});
+function render() {
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
 
-dropArea.addEventListener("dragover", (e) => {
-  e.preventDefault();
-});
+  images.forEach((url, index) => {
+    const div = document.createElement("div");
+    div.className = "card";
 
-dropArea.addEventListener("drop", (e) => {
-  e.preventDefault();
-  selectedFiles = [...e.dataTransfer.files];
-  showPreview();
-});
+    div.innerHTML = `
+      <img src="${url}" />
+      <br/>
+      <button onclick="deleteImage(${index})">Delete</button>
+    `;
 
-function showPreview() {
-  previewContainer.innerHTML = "";
-
-  selectedFiles.forEach(file => {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      const img = document.createElement("img");
-      img.src = e.target.result;
-      previewContainer.appendChild(img);
-    };
-
-    reader.readAsDataURL(file);
+    gallery.appendChild(div);
   });
 }
 
-async function uploadImages() {
-  if (!selectedFiles.length) {
-    alert("Please select images first");
-    return;
-  }
+async function uploadImage() {
+  const file = document.getElementById("fileInput").files[0];
+  if (!file) return alert("Select image first!");
 
-  progress.innerHTML = "Uploading...";
-  urlList.innerHTML = "";
+  const formData = new FormData();
+  formData.append("dtuuauzyz", file);
+  formData.append("dtuuauzyz", UPLOAD_PRESET);
 
-  const cloudName = "dtuuauzyz";
-  const uploadPreset = "dtuuauzyz";
-
-  for (const file of selectedFiles) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", uploadPreset);
-
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-
-    const response = await fetch(url, {
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    {
       method: "POST",
       body: formData
-    });
+    }
+  );
 
+  const data = await res.json();
+
+  images.push(data.secure_url);
+  localStorage.setItem("cloudImages", JSON.stringify(images));
+
+  document.getElementById("fileInput").value = "";
+
+  render(); // auto back to home update
 }
+
+function deleteImage(index) {
+  images.splice(index, 1);
+  localStorage.setItem("cloudImages", JSON.stringify(images));
+  render();
+}
+
+render();

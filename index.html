@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Image Gallery</title>
+  <title>Cloud Image Gallery</title>
   <style>
     body { font-family: Arial; padding: 20px; }
     .grid { display: flex; flex-wrap: wrap; gap: 10px; }
-    .grid img { width: 150px; height: 150px; object-fit: cover; border-radius: 10px; }
-    .upload-box { margin-top: 20px; }
+    .card { position: relative; }
+    .card img { width: 150px; height: 150px; object-fit: cover; border-radius: 10px; }
+    button { margin-top: 10px; padding: 6px 10px; }
   </style>
 </head>
 <body>
 
-<h2>📸 Image Gallery</h2>
+<h2>📸 Cloud Image Gallery</h2>
 
 <div id="gallery" class="grid"></div>
 
-<div class="upload-box">
-  <input type="file" id="fileInput" />
-  <button onclick="uploadImage()">Upload Your Image</button>
-</div>
+<hr>
+
+<input type="file" id="fileInput">
+<button onclick="uploadImage()">Upload Image</button>
 
 <script src="app.js"></script>
 
