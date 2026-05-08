@@ -1,33 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Upload System</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Image Gallery</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .grid img { width: 150px; height: 150px; object-fit: cover; border-radius: 10px; }
+    .upload-box { margin-top: 20px; }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <h2>Facebook Style Image Upload</h2>
+<h2>📸 Image Gallery</h2>
 
-  <div id="dropArea" class="drop-area">
-    <p>Drag & Drop Images Here</p>
-    <p>or</p>
-    <input type="file" id="fileInput" multiple accept="image/*">
-  </div>
+<div id="gallery" class="grid"></div>
 
-  <button onclick="uploadImages()">Upload Images</button>
- <a href="files.html">View Uploaded Files</a>
-  <div id="progress"></div>
-
-  <h3>Preview</h3>
-  <div id="previewContainer" class="preview-grid"></div>
-
-  <h3>Uploaded URLs</h3>
-  <div id="urlList"></div>
+<div class="upload-box">
+  <input type="file" id="fileInput" />
+  <button onclick="uploadImage()">Upload Your Image</button>
 </div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
