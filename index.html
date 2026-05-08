@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Upload System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Facebook Style Image Upload</h2>
+
+  <div id="dropArea" class="drop-area">
+    <p>Drag & Drop Images Here</p>
+    <p>or</p>
+    <input type="file" id="fileInput" multiple accept="image/*">
+  </div>
+
+  <button onclick="uploadImages()">Upload Images</button>
+
+  <div id="progress"></div>
+
+  <h3>Preview</h3>
+  <div id="previewContainer" class="preview-grid"></div>
+
+  <h3>Uploaded URLs</h3>
+  <div id="urlList"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
