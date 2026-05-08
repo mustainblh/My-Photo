@@ -24,7 +24,7 @@ dropArea.addEventListener("drop", (e) => {
 function showPreview() {
   previewContainer.innerHTML = "";
 
-  selectedFiles.forEach((file) => {
+  selectedFiles.forEach(file => {
     const reader = new FileReader();
 
     reader.onload = function (e) {
@@ -46,8 +46,8 @@ async function uploadImages() {
   progress.innerHTML = "Uploading...";
   urlList.innerHTML = "";
 
-  const cloudName = "dtuuauzy";
-  const uploadPreset = "dtuuauzy";
+  const cloudName = "dtuuauzyz";
+  const uploadPreset = "dtuuauzyz";
 
   for (const file of selectedFiles) {
     const formData = new FormData();
@@ -56,28 +56,9 @@ async function uploadImages() {
 
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData
-      });
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData
+    });
 
-      const data = await response.json();
-
-      if (data.secure_url) {
-        const p = document.createElement("p");
-        p.textContent = data.secure_url;
-        urlList.appendChild(p);
-      } else {
-        console.log(data);
-        alert("Upload failed");
-      }
-
-    } catch (error) {
-      console.log(error);
-      alert("Network error");
-    }
-  }
-
-  progress.innerHTML = "Upload Complete ✅";
 }

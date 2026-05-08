@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Uploaded Files</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Uploaded Files</h2>
+  <div id="fileList"></div>
+</div>
+
+<script>
+const fileList = document.getElementById("fileList");
+const savedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+
+fileList.innerHTML = savedFiles.map(file => `
+  <div style="padding:10px;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:10px;">
+    <span style="font-size:24px;">🖼️</span>
+    <a href="${file.url}" target="_blank">${file.name}</a>
+  </div>
+`).join("");
+</script>
+
+</body>
+</html>
